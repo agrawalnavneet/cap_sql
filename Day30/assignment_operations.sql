@@ -1,13 +1,6 @@
 select * from Sales_Raw;
 
 
-
-
-
-
-
-
-
 --Question 2 – Third Highest Total Sales (Analytical Query)
 
 
@@ -75,5 +68,5 @@ SELECT
     *
 FROM Sales_Raw
 WHERE 
-    YEAR(OrderDate) = 2026
+    YEAR(OrderDate) = 2024
     AND MONTH(OrderDate) = 1;
