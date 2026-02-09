@@ -8,7 +8,9 @@ class Program
  
 //   EXEC.exec();
 
-Assig.assig();
+// Assig.assig();
 // Test.test();
-    }
+
+
+Square.square();    }
 }

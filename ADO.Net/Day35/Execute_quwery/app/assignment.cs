@@ -16,14 +16,14 @@ class Assig
         using (SqlConnection con = new SqlConnection(connectionString))
         {
             con.Open();
-
+// uses .ExecuteScalar
             string countQuery = "SELECT COUNT(*) FROM dbo.Students WHERE IsHostel = 1";
             SqlCommand countCmd = new SqlCommand(countQuery, con);
 
             int hostelCount = Convert.ToInt32(countCmd.ExecuteScalar());
 
             if (hostelCount > 5)
-            {
+            { // use ExecuteNonQuery
                 string deleteQuery = "DELETE FROM dbo.Students WHERE Category = 'Backlog'";
                 SqlCommand deleteCmd = new SqlCommand(deleteQuery, con);
 
@@ -31,7 +31,7 @@ class Assig
                 Console.WriteLine(rows + " students deleted.");
             }
             else
-            {
+            { // uses ExecuteReader
                 string selectQuery = "SELECT * FROM dbo.Students";
                 SqlCommand selectCmd = new SqlCommand(selectQuery, con);
 
