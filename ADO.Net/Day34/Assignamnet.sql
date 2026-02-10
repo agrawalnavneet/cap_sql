@@ -145,7 +145,49 @@ INNER JOIN Employee e ON s.EmpId = e.EmpId
 WHERE s.SaleAmount < 10000;
 
 
+---Q9 Whenever a sale is inserted, automatically update BonusPoints. SaleAmount ≥ 50,000 → add 10 points and
+--If SaleAmount ≥ 20,000 → add 5 points  else no bonus
 
+-- CREATE TRIGGER trg_UpdateBonusPoints
+-- ON Sales
+-- AFTER INSERT
+-- AS
+-- BEGIN
+--     UPDATE e
+--     SET BonusPoints = BonusPoints +
+--         CASE 
+--             WHEN i.SaleAmount >= 50000 THEN 10
+--             WHEN i.SaleAmount >= 20000 THEN 5
+--             ELSE 0
+--         END
+--     FROM Employee e
+--     INNER JOIN inserted i ON e.EmpId = i.EmpId;
+-- END;
+
+
+
+---Q10 validates whether  Normalization is correct, Trigger worked, 
+--Aggregations are correct
+
+
+
+SELECT 
+    e.EmpName,
+    d.DeptName,
+    SUM(s.SaleAmount) AS TotalSales,
+    e.BonusPoints,
+    CASE
+        WHEN e.BonusPoints >= 50 THEN 'A'
+        WHEN e.BonusPoints BETWEEN 20 AND 49 THEN 'B'
+        ELSE 'C'
+    END AS PerformanceGrade
+FROM Employee e
+INNER JOIN Department d ON e.DeptId = d.DeptId
+INNER JOIN Sales s ON e.EmpId = s.EmpId
+GROUP BY 
+    e.EmpName,
+    d.DeptName,
+    e.BonusPoints;
 
 
 
